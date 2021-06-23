@@ -1,0 +1,104 @@
+.body {
+  margin: 0;
+}
+
+.app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: grid;
+  grid-template-areas:
+    'title title'
+    'game menu';
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 50px;
+}
+
+.app__main-title {
+  text-align: center;
+  grid-area: title;
+  margin: 50px;
+}
+.app__game {
+  grid-area: game;
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.app__btn {
+  width: 150px;
+  height: 150px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.5;
+  border: none;
+}
+
+.app__btn:hover,
+.app__btn:focus {
+  border-color: #000000;
+}
+
+.app__btn_active {
+  opacity: 1;
+}
+
+.app__btn_color_blue {
+  background-color: dodgerblue;
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+}
+
+.app__btn_color_red {
+  background-color: red;
+  border-top: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+}
+
+.app__btn_color_yellow {
+  background-color: yellow;
+  border-bottom: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+}
+.app__btn_color_green {
+  background-color: green;
+  border-bottom: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+}
+.app__menu {
+  grid-area: menu;
+  max-width: 236px;
+}
+
+.app__start {
+  width: 100px;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #6dabe8;
+  font-size: 20px;
+  border-radius: 20px;
+}
+
+.app__start:hover,
+.app__start:focus {
+  border: 1px solid #000000;
+}
