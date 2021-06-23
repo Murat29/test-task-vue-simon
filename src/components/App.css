@@ -44,9 +44,12 @@
   border: none;
 }
 
-.app__btn:hover,
-.app__btn:focus {
+.app__btn:hover {
   border-color: #000000;
+}
+
+.app__btn:disabled {
+  cursor: auto;
 }
 
 .app__btn_active {
