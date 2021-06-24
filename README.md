@@ -1,24 +1,9 @@
-# test-task-vue-simon
+## Саймон говорит
 
-## Project setup
-```
-npm install
-```
+### [Демонстрация](https://murat29.github.io/test-task-vue-simon/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Описание 
+Плавила игры: вам показывается последовательность кнопок. Вы должны повторить ее в правильном  порядке. Если ошибетесь - вы проиграли. С каждым каундом последовательность увеличивается на одну кнопку. [Почитать больше.](https://en.wikipedia.org/wiki/Simon_Says)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Использованные технологии
+* Vue
