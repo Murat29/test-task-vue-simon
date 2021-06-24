@@ -3,36 +3,14 @@
     <h1 class="app__main-title">Саймон говорит</h1>
     <fieldset :disabled="isButtonsDisabled" class="app__game">
       <button
-        @click="checkButton(1)"
-        :class="{
-          app__btn: true,
-          app__btn_color_blue: true,
-          app__btn_active: activeBtn === 1,
-        }"
-      />
-      <button
-        @click="checkButton(2)"
-        :class="{
-          app__btn: true,
-          app__btn_color_red: true,
-          app__btn_active: activeBtn === 2,
-        }"
-      />
-      <button
-        @click="checkButton(3)"
-        :class="{
-          app__btn: true,
-          app__btn_color_yellow: true,
-          app__btn_active: activeBtn === 3,
-        }"
-      />
-      <button
-        @click="checkButton(4)"
-        :class="{
-          app__btn: true,
-          app__btn_color_green: true,
-          app__btn_active: activeBtn === 4,
-        }"
+        v-for="(item, i) in arrayOfButtons"
+        :key="item"
+        @click="checkButton(i + 1)"
+        :class="[
+          'app__btn',
+          'app__btn_color_' + item,
+          activeBtn === i + 1 ? 'app__btn_active' : '',
+        ]"
       />
     </fieldset>
     <div class="app__menu">
@@ -40,7 +18,7 @@
         <h2>Раунд {{ sequenceOfButtons.length }}</h2>
         <button @click="start" class="app__start">Старт</button>
         <p v-show="isLose">
-          Извини, ты проиграл(а) после {{ sequenceOfButtons.length }} раундов
+          Извини, ты проиграл(а) на {{ sequenceOfButtons.length }} раунде
         </p>
       </div>
       <div>
@@ -88,6 +66,7 @@ export default {
   name: "App",
   data() {
     return {
+      arrayOfButtons: ["blue", "red", "yellow", "green"],
       sequenceOfButtons: [],
       currentLevel: "easy",
       activeBtn: 0,
@@ -115,43 +94,33 @@ export default {
     },
     goToNextRound() {
       this.checkedButton = 0;
-      this.sequenceOfButtons.push(this.getRandomNumber());
+      this.sequenceOfButtons.push(this.getRandomBtnNumber());
+      // i - счетчик, для прохождения по массиву sequenceOfButtons
       const i = 0;
       this.playTheWholeSequence(i);
     },
+    // рекурсивная функция, которая проходит по массиву sequenceOfButtons и
+    // воспроизводит всю последовательность, которую нужно повторить человеку
     playTheWholeSequence(i) {
       if (i < this.sequenceOfButtons.length) {
         setTimeout(() => {
           const currentBtn = this.sequenceOfButtons[i];
-          this.activeBtn = currentBtn;
-          this.sounds[currentBtn].play();
           i++;
-          setTimeout(() => {
-            this.activeBtn = 0;
-            this.sounds[currentBtn].pause();
-            this.sounds[currentBtn].currentTime = 0;
-          }, this.milliseconds[this.currentLevel] * 0.8);
+          this.activateButton(currentBtn);
           this.playTheWholeSequence(i);
         }, this.milliseconds[this.currentLevel]);
       } else {
         this.isButtonsDisabled = false;
       }
     },
+    // проверяем правильную ли пользователь нажал кнопку
     checkButton(value) {
       const currentBtn = this.sequenceOfButtons[this.checkedButton];
-      this.activeBtn = currentBtn;
-      this.sounds[currentBtn].play();
-
-      setTimeout(() => {
-        this.activeBtn = 0;
-        this.sounds[currentBtn].pause();
-        this.sounds[currentBtn].currentTime = 0;
-      }, this.milliseconds[this.currentLevel] * 0.8);
+      this.activateButton(currentBtn);
 
       if (this.sequenceOfButtons[this.checkedButton] === value) {
         this.checkedButton++;
         if (this.checkedButton === this.sequenceOfButtons.length) {
-          console.log("Тест");
           this.isButtonsDisabled = true;
           // Если не будет задержки, то следующий раунд начнется сликом быстро
           setTimeout(() => this.goToNextRound(), 1000);
@@ -161,7 +130,20 @@ export default {
         this.isButtonsDisabled = true;
       }
     },
-    getRandomNumber() {
+    activateButton(currentBtn) {
+      this.stopTheSound(currentBtn);
+      this.activeBtn = currentBtn;
+      this.sounds[currentBtn].play();
+
+      setTimeout(() => {
+        this.activeBtn = 0;
+      }, this.milliseconds[this.currentLevel] * 0.8);
+    },
+    stopTheSound(currentBtn) {
+      this.sounds[currentBtn].pause();
+      this.sounds[currentBtn].currentTime = 0;
+    },
+    getRandomBtnNumber() {
       return Math.floor(1 + Math.random() * 4);
     },
   },
