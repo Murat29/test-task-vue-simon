@@ -15,6 +15,19 @@
   column-gap: 50px;
 }
 
+@media screen and (max-width: 700px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      'title'
+      'game '
+      'menu';
+
+    justify-items: center;
+  }
+}
+
 .app__main-title {
   text-align: center;
   grid-area: title;
